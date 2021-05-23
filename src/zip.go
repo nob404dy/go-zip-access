@@ -1,4 +1,4 @@
-package main
+package zip
 
 import (
 	"fmt"
@@ -137,12 +137,12 @@ func list_files(f *os.File, file_length int64, start_offset int64, num_items int
 
 
 
-func main() {
+func run_main() {
 	//zip_path := "library.zip"
-	zip_path := "library_tiny.zip"
+	zip_path := "../../libgen.scimag29999000-29999999.zip"
 	fmt.Println("opening " + zip_path)
 	//requested_file := "10.1002/0471264180.or083.01.pdf"
-	requested_file := "10.4269/00000002.pdf"
+	requested_file := "10.1109/mitp.2013.63.pdf"
 	fmt.Println("searching for " + requested_file)
 
 	// read file
