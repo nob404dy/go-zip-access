@@ -1,1 +1,1 @@
-module github.com/nob404dy/zip_addressing
+module github.com/nob404dy/go-zip-access
