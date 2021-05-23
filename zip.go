@@ -159,7 +159,7 @@ func run_main() {
 	file_length := file_info.Size()
 
 	// End of central directory signature =  0x06054b50
-	EoCD := search_signature(f, file_length, 0, 4, []byte{0x50,0x4b,0x05,0x06})
+	EoCD := Search_signature(f, file_length, 0, 4, []byte{0x50,0x4b,0x05,0x06})
 
 	// Total number of central directory records
 	num_CD_slice := Read_bytes(f, 2, EoCD+10)
