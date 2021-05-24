@@ -3,15 +3,12 @@ package zip
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
+	//"io/ioutil"
 	"os"
 	"encoding/binary"
-	"strings"
+	//"strings"
 )
 
-func Test(i string) string {
-	return i
-}
 
 // Reading files requires checking most calls for errors.
 // This helper will streamline our error checks below.
@@ -141,13 +138,12 @@ func List_files(f *os.File, file_length int64, start_offset int64, num_items int
 
 
 
-func run_main() {
-	//zip_path := "library.zip"
-	zip_path := "../../libgen.scimag29999000-29999999.zip"
+func Get_Directory(zip_path string) ([]string){
+
 	fmt.Println("opening " + zip_path)
 	//requested_file := "10.1002/0471264180.or083.01.pdf"
-	requested_file := "10.1109/mitp.2013.63.pdf"
-	fmt.Println("searching for " + requested_file)
+	//requested_file := "10.1109/mitp.2013.63.pdf"
+	//fmt.Println("searching for " + requested_file)
 
 	// read file
 	f, err := os.Open(zip_path)
@@ -167,24 +163,25 @@ func run_main() {
 	fmt.Print("Number of Central Directory records: ")
 	fmt.Println(num_CD)
 
-	fmt.Println("Listing Files: ")
 	// interrupts at the first local file header 0x04034b50
 	list_index, list_name := List_files(f, file_length, 0, num_CD, []byte{0x50,0x4b,0x01,0x02}, []byte{0x50,0x4b,0x03,0x04})
-	pos_item := Find(list_name, requested_file)
-	fmt.Print("requested item at ")
-	fmt.Println(list_index[pos_item])
+	fmt.Println(list_index)
+	return list_name
 
 	//item
-	data := Get_item(f,list_index[pos_item], requested_file)
-	f.Close()
+	//pos_item := Find(list_name, requested_file)
+	//fmt.Print("requested item at ")
+	//fmt.Println(list_index[pos_item])
+	//data := Get_item(f,list_index[pos_item], requested_file)
+	//f.Close()
 	// redirect datastream as virtual filesystem for IPFS at this point
 
 	// save data for now
-	if strings.Contains(requested_file, "/"){
-		os.MkdirAll(strings.Split(requested_file, "/")[0], os.ModePerm)
-	}
-	err = ioutil.WriteFile(requested_file, data, 0644)
-	Check(err)
-	fmt.Print("file extracted.")
+	//if strings.Contains(requested_file, "/"){
+	//	os.MkdirAll(strings.Split(requested_file, "/")[0], os.ModePerm)
+	//}
+	//err = ioutil.WriteFile(requested_file, data, 0644)
+	//Check(err)
+	//fmt.Print("file extracted.")
 
 }
